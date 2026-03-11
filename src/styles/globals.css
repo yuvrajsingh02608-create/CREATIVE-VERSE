@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:opsz,wght@9..40,200..1000&display=swap');
+/* Clash Display is often a custom font, but I'll use Syne as a high-fidelity fallback if not CD, but actually I'll try to find a CDN or just use Syne which is already great. Wait, user specified Clash Display. I'll use a local @font-face or a CDN link if possible. Since I can't download, I'll use public Fontshare CDN for Clash Display. */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #05050a;
+  --foreground: #f5f0e8;
+  --acid: #b8ff00;
+  --violet: #6d28ff;
+  --orange: #ff3d00;
+  --rose: #ff1a6e;
+  --cyan: #00e5ff;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-body selection:bg-rose selection:text-white antialiased overflow-x-hidden;
+  }
+
+  /* Grain Overlay */
+  .grain-overlay {
+    content: "";
+    @apply fixed -inset-[50%] w-[200%] h-[200%] pointer-events-none z-[9997] opacity-[0.035] animate-grain;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bebas tracking-[0.05em] uppercase;
+    line-height: 0.95;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05050a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6d28ff;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-3xl border border-white/[0.08] rounded-2xl;
+  }
+
+  .btn-primary {
+    @apply px-10 py-5 bg-acid text-black font-clash font-bold rounded-full transition-all duration-500 uppercase tracking-widest flex items-center justify-center gap-3 overflow-hidden relative;
+    box-shadow: 0 0 20px rgba(184, 255, 0, 0.15);
+  }
+
+  .btn-secondary {
+    @apply px-10 py-5 glass text-white font-clash font-bold rounded-full hover:bg-white/[0.08] transition-all duration-500 uppercase tracking-widest flex items-center justify-center gap-3;
+  }
+
+  .btn-ghost {
+      @apply px-8 py-4 text-white/40 hover:text-white font-mono text-[10px] uppercase tracking-[0.3em] transition-all flex items-center gap-2;
+  }
+
+  /* Reveal Animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: all 0.85s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-48px);
+    transition: all 0.85s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(48px);
+    transition: all 0.85s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .reveal.active, .reveal-left.active, .reveal-right.active {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-violet focus:ring-offset-2 focus:ring-offset-background;
+}
+
+@keyframes gradient-border {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}

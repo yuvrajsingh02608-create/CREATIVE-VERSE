@@ -1,0 +1,21 @@
+{
+  "name": "CREATIVEVERSE",
+  "short_name": "VERSE",
+  "description": "Where Art Meets Opportunity",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05050a",
+  "theme_color": "#b8ff00",
+  "icons": [
+    {
+      "src": "https://i.pravatar.cc/192?u=verse",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.pravatar.cc/512?u=verse",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
